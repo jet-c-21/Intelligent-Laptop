@@ -1,0 +1,5 @@
+opencv-contrib-python
+imutils
+matplotlib
+dlib
+secure-smtplib
