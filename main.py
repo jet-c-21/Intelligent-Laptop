@@ -3,6 +3,7 @@ import os
 
 from service.app.operate import Operate
 from service.app.sign_up_helper import SignUpHelper
+from face_ult.record_master_data import RecordMD
 
 DEVICE_DATA_PATH = 'DeviceData'
 if not os.path.exists(DEVICE_DATA_PATH):
@@ -18,7 +19,8 @@ def stage_b():
         print('3 - protect laptop')
         cmd = input()
         if cmd == '1':
-            print('ya')
+            rmd = RecordMD()
+            rmd.launch()
             flag = False
 
         elif cmd == '2':
