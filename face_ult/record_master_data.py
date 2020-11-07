@@ -11,15 +11,18 @@ import numpy as np
 
 from face_ult.face_capture import FaceCapture, CapturedFace
 from face_ult.cropper import Cropper
+from face_ult.img_tool import ImgTool
 from ult.file_tool import FileTool
 
 
 class RecordMD:
     img_dir = 'DeviceData/master/img'
     meta_path = 'DeviceData/master/img_meta.csv'
-    meta_cols = ['id', 'ts', 'year', 'month', 'day', 'img_path']
+    meta_cols = ['id', 'ts', 'year', 'month', 'day', 'clarity', 'img_path']
+
+    clarity_thresh = 200
     fetch_count = 10
-    interval = 3
+    interval = 1
 
     def __init__(self):
         self.__img_meta: pd.DataFrame
@@ -63,22 +66,39 @@ class RecordMD:
     def __record_face(self, img: np.ndarray, capt_faces: CapturedFace, ts: int) -> bool:
         face_block = capt_faces[0]
         cropped_face = Cropper.get_cropped_face(img, face_block, 0.9)
-        if self.__check_cap_faces(FaceCapture.cap(cropped_face)):
-            img_name = f'master_{ts}.jpg'
-            img_path = f'{RecordMD.img_dir}/{img_name}'
+        if RecordMD.__check_cap_faces(FaceCapture.cap(cropped_face)):
+            face_clarity = RecordMD.__check_face_clarity(cropped_face)
+            if face_clarity != -1:
+                # save the face image
+                img_name = f'master_{ts}.jpg'
+                img_path = f'{RecordMD.img_dir}/{img_name}'
+                date = FileTool.get_date(ts)
+                cv2.imwrite(img_path, cropped_face)
 
-            date = FileTool.get_date(ts)
-            cv2.imwrite(img_path, cropped_face)
+                # save record in metadata
+                record = [img_name, ts, date.year, date.month, date.day, face_clarity, img_path]
+                self.__img_meta.loc[len(self.__img_meta)] = record
+                return True
 
-            record = [img_name, ts, date.year, date.month, date.day, img_path]
-            self.__img_meta.loc[len(self.__img_meta)] = record
+            else:
+                print('The img is too blurry.')
+                return False
+
+        else:
+            print('Can not capture face in cropped the image.')
+            return False
+
+    @staticmethod
+    def __check_cap_faces(capt_faces: CapturedFace) -> bool:
+        if capt_faces.has_face and capt_faces.face_count == 1:
             return True
         else:
             return False
 
     @staticmethod
-    def __check_cap_faces(capt_faces: CapturedFace):
-        if capt_faces.has_face and capt_faces.face_count == 1:
-            return True
+    def __check_face_clarity(img: np.ndarray) -> int:
+        clarity_val = ImgTool.get_clarity_val(img)
+        if clarity_val >= RecordMD.clarity_thresh:
+            return clarity_val
         else:
-            return False
+            return -1
