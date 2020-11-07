@@ -26,7 +26,6 @@ class CapturedFace:
         return self.face_list[item]
 
 
-
 class FaceCapture:
     dlib_detector = dlib.get_frontal_face_detector()
 

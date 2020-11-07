@@ -1,7 +1,7 @@
 # coding : utf-8
 import os
 import pandas as pd
-from imutils.video import VideoStream
+from imutils.video import WebcamVideoStream
 import argparse
 import imutils
 import time
@@ -23,14 +23,17 @@ class RecordMD:
 
     def __init__(self):
         self.__img_meta: pd.DataFrame
+        if not os.path.exists(RecordMD.img_dir):
+            os.mkdir(RecordMD.img_dir)
+
         if os.path.exists(RecordMD.meta_path):
-            pd.read_csv(RecordMD.meta_path)
+            self.__img_meta = pd.read_csv(RecordMD.meta_path)
         else:
             self.__img_meta = pd.DataFrame(columns=RecordMD.meta_cols)
 
     def launch(self):
         flag = True
-        vs = VideoStream(src=0).start()
+        vs = WebcamVideoStream(src=0).start()
         time.sleep(2.0)
         fetch_face = 0
         last_face_ts = 0
@@ -41,18 +44,21 @@ class RecordMD:
             if capt_faces.has_face and capt_faces.face_count == 1:
                 ts = FileTool.get_curr_ts()
                 if ts - last_face_ts > RecordMD.interval:
-                    self.record_face(frame, capt_faces, ts)
+                    self.__record_face(frame, capt_faces, ts)
                     fetch_face += 1
                     print(f'fetch face successfully. ({fetch_face}/{RecordMD.fetch_count})')
                     last_face_ts = ts
 
-            cv2.imshow("Frame", frame)
+            cv2.imshow('Frame', frame)
             cv2.waitKey(1) & 0xFF
+
+            if fetch_face == RecordMD.fetch_count:
+                flag = False
 
         self.__img_meta.to_csv(RecordMD.meta_path, index=False, encoding='utf-8')
         print('finish saving img meta.')
 
-    def record_face(self, img: np.ndarray, capt_faces: CapturedFace, ts: int):
+    def __record_face(self, img: np.ndarray, capt_faces: CapturedFace, ts: int):
         face_block = capt_faces[0]
         cropped_face = Cropper.get_cropped_face(img, face_block)
 
@@ -63,5 +69,5 @@ class RecordMD:
         cv2.imwrite(img_path, cropped_face)
 
         record = [img_name, ts, date.year, date.month, date.day, img_path]
-        self.__img_meta.loc[len(record)] = record
+        self.__img_meta.loc[len(self.__img_meta)] = record
 
