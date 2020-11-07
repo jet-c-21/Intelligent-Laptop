@@ -22,7 +22,7 @@ class CapturedFace:
             text += f'\t Face-{i}: {str(f)}'
         return text.strip()
 
-    def __getitem__(self, item):
+    def __getitem__(self, item) -> dlib.rectangle:
         return self.face_list[item]
 
 
