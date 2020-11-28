@@ -11,6 +11,7 @@ vs = VideoStream(src=0).start()
 time.sleep(2.0)
 total = 0
 
+
 while True:
     # grab the frame from the threaded video stream, clone it, (just
     # in case we want to write it to disk), and then resize the frame

@@ -56,6 +56,7 @@ def stage_a():
             else:
                 op.hint_unknown_cmd()
 
+
 if __name__ == '__main__':
     op = Operate()
     stage_a()
