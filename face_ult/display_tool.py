@@ -3,6 +3,7 @@ import numpy
 import cv2
 from imutils import face_utils
 import sys
+import numpy as np
 
 
 class DisplayTool:
@@ -139,3 +140,8 @@ class DisplayTool:
         cv2.imshow(window_name, img)
         cv2.waitKey(0)
         return temp
+
+    @staticmethod
+    def view(img: np.ndarray):
+        cv2.imshow('view', img)
+        cv2.waitKey(0)
