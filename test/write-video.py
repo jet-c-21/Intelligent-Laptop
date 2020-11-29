@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 cap = cv2.VideoCapture(0)
-fourcc = cv2.VideoWriter_fourcc('D','I','V','X')
+fourcc = cv2.VideoWriter_fourcc('D', 'I', 'V', 'X')
 
 size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
         int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))

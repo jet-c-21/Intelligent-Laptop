@@ -5,7 +5,7 @@ import cv2
 
 from face_ult.display_tool import DisplayTool as dt
 
-img_path = 'bts.jpg'
+img_path = 'b.jpg'
 image = cv2.imread(img_path)
 
 if __name__ == '__main__':

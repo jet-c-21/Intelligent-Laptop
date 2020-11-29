@@ -13,9 +13,6 @@ total = 0
 
 
 while True:
-    # grab the frame from the threaded video stream, clone it, (just
-    # in case we want to write it to disk), and then resize the frame
-    # so we can apply face detection faster
     frame = vs.read()
     orig = frame.copy()
     frame = imutils.resize(frame, width=400)
