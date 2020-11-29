@@ -3,7 +3,7 @@ import pathlib
 
 import cv2
 import dlib
-import numpy
+import numpy as np
 
 
 class CapturedFace:
@@ -30,7 +30,7 @@ class FaceCapture:
     dlib_detector = dlib.get_frontal_face_detector()
 
     @staticmethod
-    def cap(img: numpy.ndarray, mode='default') -> CapturedFace:
+    def cap(img: np.ndarray, mode=None) -> CapturedFace:
         """
         the default detector is dlib detector
         :param img:  numpy.ndarray

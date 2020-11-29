@@ -54,7 +54,7 @@ class RecordMD:
                     else:
                         print(f'failed to record faces')
 
-            cv2.imshow('Frame', frame)
+            cv2.imshow('Frame', cv2.flip(frame, 1))
             cv2.waitKey(1) & 0xFF
 
             if fetch_face == RecordMD.fetch_count:

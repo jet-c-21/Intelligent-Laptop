@@ -3,3 +3,5 @@ imutils
 matplotlib
 dlib
 secure-smtplib
+aiohttp
+gdown

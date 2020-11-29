@@ -1,6 +1,8 @@
 # coding: utf-8
 import cv2
 import dlib
+import numpy as np
+from face_ult.face_capture import FaceCapture
 
 
 class BboxCropper:
@@ -71,11 +73,11 @@ class Cropper:
         return int(proper_margin * 100) / 100
 
     @staticmethod
-    def get_cropped_face(img, face_block: dlib.rectangle, margin='default'):
-        if margin == 'default':
-            margin = BboxCropper.MARGIN
-        else:
+    def get_cropped_face(img: np.ndarray, face_block: dlib.rectangle, margin=None) -> np.ndarray:
+        if margin:
             margin = margin
+        else:
+            margin = BboxCropper.MARGIN
 
         w = face_block.width()
         h = face_block.height()
@@ -92,3 +94,14 @@ class Cropper:
         new_h = h + (2 * h_expand)
 
         return img[new_lt_y:new_lt_y + new_h, new_lt_x:new_lt_x + new_w]
+
+    @staticmethod
+    def get_smart_cropped_face(img: np.ndarray, face_block: dlib.rectangle):
+        for i in range(10, -1, -1):
+            margin = i / 10
+            cropped = Cropper.get_cropped_face(img, face_block, margin)
+            h, w, _ = cropped.shape
+            if h > 0 and w > 0:
+                capt_faces = FaceCapture.cap(cropped)
+                if capt_faces.face_count == 1:
+                    return cropped
