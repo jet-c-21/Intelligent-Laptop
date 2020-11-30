@@ -1,12 +1,14 @@
-import numpy as np
-import dlib
-from face_ult.face_capture import FaceCapture
-from face_ult.cropper import Cropper
-from face_ult.img_tool import ImgTool
-from face_ult.face_rotate import FaceRotate
-from face_ult.model_api import ModelAPI
 from typing import Union
+
+import dlib
 import face_recognition
+import numpy as np
+
+from face_ult.cropper import Cropper
+from face_ult.face_capture import FaceCapture
+from face_ult.face_rotate import FaceRotate
+from face_ult.img_tool import ImgTool
+from face_ult.model_api import ModelAPI
 
 
 class FacesProc:

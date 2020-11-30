@@ -1,7 +1,8 @@
-from face_ult.record_master_data import RecordMD
-from ult.ui_tool import UITool
 import os
 import re
+
+from face_ult.record_master_data import RecordMD
+from ult.ui_tool import UITool
 
 
 class RecordMasterDataDlg:

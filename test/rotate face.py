@@ -15,4 +15,3 @@ if __name__ == '__main__':
         rotated = FaceRotate.get_rotated_face(cropped_face)
         cf = FaceCapture.cap(rotated)
         print(cf.face_count)
-

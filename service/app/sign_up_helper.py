@@ -1,8 +1,9 @@
 # coding: utf-8
 import os
+import re
+
 from service.app.operate import Operate
 from ult.file_tool import FileTool
-import re
 
 
 class SignUpHelper:

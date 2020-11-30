@@ -1,6 +1,7 @@
 import os
-from ult.ui_tool import UITool
+
 from face_ult.model_updater import ModelUpdater
+from ult.ui_tool import UITool
 
 
 class UpdateModelDlg:

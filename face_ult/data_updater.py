@@ -4,23 +4,23 @@ author: Jet Chien
 GitHub: https://github.com/jet-chien
 Create Date: 2020/11/28
 """
-import os
 import asyncio
-import aiohttp
-import requests
-import pyquery
-import numpy as np
-import cv2
 import multiprocessing as mp
+import os
+
+import aiohttp
+import cv2
+import numpy as np
+import pyquery
+import requests
 from pyquery import PyQuery as pq
-from ult.file_tool import FileTool
 from tqdm import tqdm
-from face_ult.face_capture import FaceCapture
+
 from face_ult.cropper import Cropper
+from face_ult.face_capture import FaceCapture
 from face_ult.face_rotate import FaceRotate
 from face_ult.recog_tool import RecogTool
-from requests.models import Response
-from pprint import pprint as pp
+from ult.file_tool import FileTool
 
 
 class ArtistGenerator:

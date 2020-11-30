@@ -1,4 +1,5 @@
 from imutils import paths
+
 from face_ult.recog_tool import RecogTool
 
 dir_path = '../data'

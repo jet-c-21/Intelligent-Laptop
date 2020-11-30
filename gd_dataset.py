@@ -1,5 +1,7 @@
-import gdown
 import zipfile
+
+import gdown
+
 
 def get_data_set():
     dataset_url = 'https://drive.google.com/uc?id=1TCha0-JlGMeuBoMgL0kehK_SsjQ1QKb7'

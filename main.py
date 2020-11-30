@@ -1,13 +1,12 @@
 # coding: utf-8
 import os
 
-from service.app.operate import Operate
-from ult.ui_tool import UITool
 from gd_dataset import get_data_set
+from service.app.operate import Operate
+from service.app.protect_laptop_dlg import ProtectLaptopDlg
 from service.app.record_md_dlg import RecordMasterDataDlg
 from service.app.sign_up_helper import SignUpHelper
 from service.app.update_model_dlg import UpdateModelDlg
-from service.app.protect_laptop_dlg import ProtectLaptopDlg
 
 DEVICE_DATA_PATH = 'DeviceData'
 if not os.path.exists(DEVICE_DATA_PATH):
@@ -61,6 +60,7 @@ def stage_a():
 
             else:
                 op.hint_unknown_cmd()
+
 
 def check_dataset():
     if not os.path.exists('data'):

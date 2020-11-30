@@ -1,11 +1,13 @@
-import cv2
-import numpy as np
 import os
-import imutils
 from urllib.request import urlopen
-from face_ult.captured_face import CapturedFace
-from imutils import face_utils
+
+import cv2
 import dlib
+import imutils
+import numpy as np
+from imutils import face_utils
+
+from face_ult.captured_face import CapturedFace
 
 
 class ImgTool:

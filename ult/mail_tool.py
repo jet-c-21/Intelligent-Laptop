@@ -1,10 +1,12 @@
 # coding:utf-8
 import datetime
-import cv2
-import smtplib
 import imghdr
-from ult.file_tool import FileTool
+import smtplib
 from email.message import EmailMessage
+
+import cv2
+
+from ult.file_tool import FileTool
 
 
 class MailTool:

@@ -7,11 +7,12 @@ import imutils
 import numpy as np
 import pandas as pd
 from imutils.video import WebcamVideoStream
-from face_ult.img_tool import ImgTool
+
 from face_ult.cropper import Cropper
 from face_ult.face_capture import FaceCapture, CapturedFace
 from face_ult.face_rotate import FaceRotate
 from face_ult.faces_proc import FacesProc
+from face_ult.img_tool import ImgTool
 from face_ult.recog_tool import RecogTool
 from ult.file_tool import FileTool
 from ult.ui_tool import UITool
