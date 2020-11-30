@@ -2,6 +2,7 @@ from service.app.operate import Operate
 from face_ult.fd_protect import FDProtect
 from face_ult.fm_protect import FMProtect
 from face_ult.model_api import ModelAPI
+from ult.ui_tool import UITool
 import os
 
 class ProtectLaptopDlg:
@@ -13,7 +14,9 @@ class ProtectLaptopDlg:
             return True
         else:
             need = 20 - data_count
-            print(f"your master data is lower than 20, plz record {need} more.")
+            msg = f"Your master data is lower than 20, plz record {need} more data first."
+            print(msg)
+            UITool.msg_window(msg=msg)
             return False
 
     @staticmethod
@@ -54,9 +57,13 @@ class ProtectLaptopDlg:
         if ModelAPI.get_path('custom'):
             FMProtect().launch()
         else:
-            print('you have not had any custom model yet. plz try to update the model first.')
+            msg = 'Seems that you do NOT have any custom model yet. plz try to update the model first.'
+            print(msg)
+            UITool.msg_window(msg=msg)
 
     @staticmethod
     def demo_handler():
+        msg = 'Start to using the demo.joblib model.'
+        UITool.msg_window(msg=msg)
         FMProtect('demo').launch()
 

@@ -6,6 +6,7 @@ face_recognition
 secure-smtplib
 aiohttp
 gdown
+pandas
 scikit-learn
 easygui
 pyquery
