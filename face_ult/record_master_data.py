@@ -62,7 +62,8 @@ class RecordMD:
 
             if self.display:
                 display_frame = cv2.flip(display_frame, 1)
-                display_frame = ImgTool.add_text(display_frame, fetch_face)
+                text = f"{fetch_face} / {self.fetch_count}"
+                display_frame = ImgTool.add_text(display_frame, text)
                 cv2.imshow('Frame', display_frame)
 
             key = cv2.waitKey(1)
@@ -76,7 +77,8 @@ class RecordMD:
         vs.stop()
         cv2.destroyAllWindows()
         # self.__img_meta.to_csv(RecordMD.meta_path, index=False, encoding='utf-8')
-        UITool.msg_window('info', 'Finish recoding master data.')
+        msg = 'Finish recoding master data.'
+        UITool.msg_window(msg=msg)
 
         print('finish saving img meta.')
 
