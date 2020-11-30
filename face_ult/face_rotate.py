@@ -1,7 +1,8 @@
-import numpy as np
 import dlib
-from face_ult.img_tool import ImgTool
+import numpy as np
+
 from face_ult.face_capture import FaceCapture
+from face_ult.img_tool import ImgTool
 from face_ult.model_api import ModelAPI
 
 

@@ -1,3 +1,4 @@
+import json
 import pathlib
 import random
 import time
@@ -5,9 +6,7 @@ import time
 import cv2
 import face_recognition
 import imutils
-import json
 import numpy as np
-from ult.mail_tool import MailTool
 from imutils import paths
 from imutils.video import WebcamVideoStream
 from tqdm import tqdm
@@ -15,6 +14,7 @@ from tqdm import tqdm
 from face_ult.face_capture import FaceCapture
 from face_ult.faces_proc import FacesProc
 from face_ult.img_tool import ImgTool
+from ult.mail_tool import MailTool
 from ult.ui_tool import UITool
 
 
@@ -153,4 +153,3 @@ class FDProtect:
         if not check:
             print(f" WARN - find stranger !!!")
             self.alert = True
-

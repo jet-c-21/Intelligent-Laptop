@@ -1,16 +1,14 @@
-from imutils.video import VideoStream
-import argparse
-import imutils
 import time
+
 import cv2
-import os
+import imutils
+from imutils.video import VideoStream
 
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
 # vs = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)
 total = 0
-
 
 while True:
     frame = vs.read()

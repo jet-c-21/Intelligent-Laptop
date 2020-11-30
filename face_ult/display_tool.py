@@ -1,9 +1,10 @@
 # coding: utf-8
-import numpy
-import cv2
-from imutils import face_utils
 import sys
+
+import cv2
+import numpy
 import numpy as np
+from imutils import face_utils
 
 
 class DisplayTool:

@@ -1,5 +1,6 @@
-from ult.mail_tool import MailTool
 import cv2
+
+from ult.mail_tool import MailTool
 
 img_paths = ['a.jpg', 'b.jpg']
 images = []

@@ -1,9 +1,10 @@
 # coding: utf-8
-import pathlib
 import ntpath
-import dlib
-import cv2
 import os
+import pathlib
+
+import cv2
+import dlib
 from joblib import load
 from sklearn.pipeline import Pipeline
 
@@ -51,7 +52,7 @@ class ModelAPI:
             return ModelAPI._path_convert(s, path_type)
 
     @staticmethod
-    def _demo_router(path_type)->str:
+    def _demo_router(path_type) -> str:
         s = f"{ModelAPI.MODEL_DIR}/custom/demo.joblib"
         return ModelAPI._path_convert(s, path_type)
 

@@ -1,9 +1,11 @@
-from service.app.operate import Operate
+import os
+
 from face_ult.fd_protect import FDProtect
 from face_ult.fm_protect import FMProtect
 from face_ult.model_api import ModelAPI
+from service.app.operate import Operate
 from ult.ui_tool import UITool
-import os
+
 
 class ProtectLaptopDlg:
     @staticmethod
@@ -66,4 +68,3 @@ class ProtectLaptopDlg:
         msg = 'Start to using the demo.joblib model.'
         UITool.msg_window(msg=msg)
         FMProtect('demo').launch()
-
