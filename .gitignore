@@ -1,12 +1,12 @@
 .idea
-.DS_Store
+.DS_Store/
 .idea/*
-_pychache_
+_pychache_/
 _pychache_/*
 */_pychache_
 */_pychache_/*
-data
+data/
 data/*
 data.zip
-DeviceData
+DeviceData/
 DeviceData/*
