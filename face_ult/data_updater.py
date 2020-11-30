@@ -206,7 +206,7 @@ class ArtistDataBuilder:
             if cropped_face is not None:
                 rotated = FaceRotate.get_rotated_face(cropped_face)
                 if rotated is not None:
-                    if RecogTool.can_get_embed(rotated):
+                    if RecogTool.can_get_embed(rotated, 'cv2-dnn'):
                         image_name = f"{FileTool.gen_random_token()}.jpg"
                         img_path = f"{self.img_dir}/{image_name}"
                         cv2.imwrite(img_path, rotated)

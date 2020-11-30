@@ -7,6 +7,7 @@ from face_ult.captured_face import CapturedFace
 from imutils import face_utils
 import dlib
 
+
 class ImgTool:
     BLOCK_THICK = 2
     TEXT_SIZE = 0.75
@@ -90,4 +91,19 @@ class ImgTool:
         elif isinstance(face_loc, dlib.rectangle):
             x, y, w, h = face_utils.rect_to_bb(face_loc)
             cv2.rectangle(img, (x, y), (x + w, y + h), color, thick)
+        return img
+
+    @staticmethod
+    def add_text(img: np.ndarray, text, color='green'):
+        text = str(text)
+        color = ImgTool.get_color(color)
+        coord = (75, 75)
+        size = 2
+        thick = 2
+        line_style = cv2.LINE_AA
+        font_style = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(img, text, coord,
+                    font_style, size,
+                    color, thick,
+                    line_style)
         return img

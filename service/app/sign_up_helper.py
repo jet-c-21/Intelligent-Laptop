@@ -2,6 +2,7 @@
 import os
 from service.app.operate import Operate
 from ult.file_tool import FileTool
+import re
 
 
 class SignUpHelper:
@@ -33,8 +34,7 @@ class SignUpHelper:
         self._master_name = cmd
 
         print('please enter your email:')
-        cmd = input()
-        self._master_email = cmd
+        self.ask_mail()
 
         print('please verify:')
         print(f'Master Name: {self._master_name}')
@@ -49,3 +49,14 @@ class SignUpHelper:
                 self.get_master_data()
             else:
                 Operate.hint_unknown_cmd()
+
+    def ask_mail(self):
+        p = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        flag = True
+        while flag:
+            cmd = input()
+            if re.match(p, cmd):
+                self._master_email = cmd
+                flag = False
+            else:
+                print('please enter a valid mail address! please retry.')

@@ -52,11 +52,10 @@ class FDProtect:
             if len(self.master_data) >= self.compare_count:
                 break
 
-        type_check = set()
-        for m in self.master_data:
-            type_check.add(type(m))
-
-        print(type_check)
+        # type_check = set()
+        # for m in self.master_data:
+        #     type_check.add(type(m))
+        # print(type_check)
 
         self.thresh = int(len(self.master_data) * FDProtect.THRESH_RATE)
 
@@ -75,8 +74,9 @@ class FDProtect:
         time.sleep(2.0)
         cv2.startWindowThread()
         while flag:
+            check = True
             frame = vs.read()
-            frame = imutils.resize(frame, width=600)
+            frame = imutils.resize(frame, width=800)
             display_frame = frame.copy()
             capt_faces = FaceCapture.cap(frame)
             if capt_faces.has_face:
@@ -92,7 +92,17 @@ class FDProtect:
                     print('fetched face data is not enough')
 
             if self.display:
-                cv2.imshow('Frame', cv2.flip(display_frame, 1))
+                display_frame = cv2.flip(display_frame, 1)
+                if check:
+                    text = 'Safe'
+                    print(text)
+                    display_frame = ImgTool.add_text(display_frame, text)
+                else:
+                    text = 'Detect Stranger!'
+                    display_frame = ImgTool.add_text(display_frame, text, color='red')
+
+                cv2.imshow('Frame', display_frame)
+
             key = cv2.waitKey(1)
             if self.alert or key == 27 or key == ord('q'):
                 flag = False

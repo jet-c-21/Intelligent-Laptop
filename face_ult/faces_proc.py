@@ -10,7 +10,7 @@ import face_recognition
 
 
 class FacesProc:
-    CLARITY_THRESH = 150
+    CLARITY_THRESH = 50
 
     @staticmethod
     def dlib_rect_to_boxes(rect: dlib.rectangle) -> tuple:

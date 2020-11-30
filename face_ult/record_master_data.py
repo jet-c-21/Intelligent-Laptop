@@ -7,7 +7,7 @@ import imutils
 import numpy as np
 import pandas as pd
 from imutils.video import WebcamVideoStream
-
+from face_ult.img_tool import ImgTool
 from face_ult.cropper import Cropper
 from face_ult.face_capture import FaceCapture, CapturedFace
 from face_ult.face_rotate import FaceRotate
@@ -22,11 +22,11 @@ class RecordMD:
     META_PATH = 'DeviceData/master/img_meta.csv'  # deprecate
     META_COLS = ['id', 'ts', 'year', 'month', 'day', 'clarity', 'img_path']  # deprecate
 
-    CLARITY_THRESH = 200
     INTERVAL = 1
 
-    def __init__(self, fetch_count=2):
+    def __init__(self, fetch_count=2, display=True):
         self.fetch_count = fetch_count
+        self.display = display
         self.__img_meta: pd.DataFrame
         if not os.path.exists(RecordMD.IMG_DIR):
             os.mkdir(RecordMD.IMG_DIR)
@@ -46,9 +46,11 @@ class RecordMD:
         cv2.startWindowThread()
         while flag:
             frame = vs.read()
-            frame = imutils.resize(frame, width=400)
+            frame = imutils.resize(frame, width=800)
+            display_frame = frame.copy()
             capt_faces = FaceCapture.cap(frame)
             if capt_faces.face_count == 1:
+                display_frame = ImgTool.add_face_block(display_frame, capt_faces)
                 ts = FileTool.get_curr_ts()
                 if ts - last_face_ts > RecordMD.INTERVAL:
                     if self.__record_face(frame, capt_faces, ts):
@@ -58,7 +60,11 @@ class RecordMD:
                     else:
                         print(f'failed to record faces')
 
-            cv2.imshow('Frame', cv2.flip(frame, 1))
+            if self.display:
+                display_frame = cv2.flip(display_frame, 1)
+                display_frame = ImgTool.add_text(display_frame, fetch_face)
+                cv2.imshow('Frame', display_frame)
+
             key = cv2.waitKey(1)
 
             if fetch_face == self.fetch_count or key == 27 or key == ord('q'):
@@ -90,7 +96,7 @@ class RecordMD:
             print('failed to rotate face')
             return False
 
-        if RecogTool.can_get_embed(rotated_face):
+        if RecogTool.can_get_embed(rotated_face, 'cv2-dnn'):
             # save the face image
             img_name = f'master_{ts}.jpg'
             img_path = f'{RecordMD.IMG_DIR}/{img_name}'

@@ -101,9 +101,9 @@ class RecogTool:
             return data
 
     @staticmethod
-    def can_get_embed(img: np.ndarray) -> bool:
+    def can_get_embed(img: np.ndarray, mode='cv2-dnn') -> bool:
         try:
-            embed = RecogTool.get_face_embed(img)
+            embed = RecogTool.get_face_embed(img, mode=mode)
             if embed is not None:
                 return True
         except Exception as e:

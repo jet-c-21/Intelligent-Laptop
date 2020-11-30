@@ -1,6 +1,8 @@
 from face_ult.record_master_data import RecordMD
+from ult.ui_tool import UITool
 import os
 import re
+
 
 class RecordMasterDataDlg:
     @staticmethod
@@ -25,8 +27,6 @@ class RecordMasterDataDlg:
             if re.match(p, cmd):
                 return int(cmd)
 
-
-
     @staticmethod
     def launch():
         if RecordMasterDataDlg._check_master_data():
@@ -35,5 +35,7 @@ class RecordMasterDataDlg:
             RecordMD(fetch_count).launch()
 
         else:
-            print('seems you have not have any master data yet, please record 20 master first.')
+            msg = 'Seems that you have not have any master data yet, please record 20 master first.'
+            print(msg)
+            UITool.msg_window(msg=msg)
             RecordMD(20).launch()
