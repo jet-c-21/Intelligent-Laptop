@@ -2,8 +2,12 @@
 import os
 
 from service.app.operate import Operate
+from ult.ui_tool import UITool
+from gd_dataset import get_data_set
+from service.app.record_md_dlg import RecordMasterDataDlg
 from service.app.sign_up_helper import SignUpHelper
-from face_ult.record_master_data import RecordMD
+from service.app.update_model_dlg import UpdateModelDlg
+from service.app.protect_laptop_dlg import ProtectLaptopDlg
 
 DEVICE_DATA_PATH = 'DeviceData'
 if not os.path.exists(DEVICE_DATA_PATH):
@@ -13,21 +17,23 @@ if not os.path.exists(DEVICE_DATA_PATH):
 def stage_b():
     flag = True
     while flag:
-        print('{}, what do you want do?'.format(op.master_data.get('name')))
+        print('\n{}, what do you want do?'.format(op.master_data.get('name')))
         print('1 - record master data')
         print('2 - update model')
         print('3 - protect laptop')
+        print('q - exit\n')
         cmd = input()
         if cmd == '1':
-            rmd = RecordMD()
-            rmd.launch()
-            flag = False
+            RecordMasterDataDlg.launch()
 
         elif cmd == '2':
-            print('coming soon')
+            UpdateModelDlg.launch()
 
         elif cmd == '3':
-            print('coming soon')
+            ProtectLaptopDlg.launch()
+
+        elif cmd == 'q':
+            return
 
         else:
             op.hint_unknown_cmd()
@@ -56,7 +62,28 @@ def stage_a():
             else:
                 op.hint_unknown_cmd()
 
+def check_dataset():
+    if not os.path.exists('data'):
+        msg = f'Seems like you have not download the artist dataset yet. \n' \
+              f'Do you want to download it? (y/n)'
+        print(msg)
+        # UITool.msg_window(msg=msg)
+
+        flag = True
+        while flag:
+            cmd = input()
+            if cmd == 'y':
+                get_data_set()
+                flag = False
+
+            elif cmd == 'n':
+                flag = False
+
+            else:
+                op.hint_unknown_cmd()
+
 
 if __name__ == '__main__':
     op = Operate()
+    check_dataset()
     stage_a()

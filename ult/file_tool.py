@@ -5,7 +5,9 @@ import datetime
 import os
 import pickle
 import random
+import shutil
 from hashlib import md5
+
 
 class FileTool:
     @staticmethod
@@ -27,6 +29,10 @@ class FileTool:
     def create_folder(fp: str):
         if not os.path.exists(fp):
             os.mkdir(fp)
+
+    @staticmethod
+    def del_folder(fp: str):
+        shutil.rmtree(fp, ignore_errors=True)
 
     @staticmethod
     def to_pkl(data, fp):

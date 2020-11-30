@@ -3,6 +3,9 @@ import pathlib
 import ntpath
 import dlib
 import cv2
+import os
+from joblib import load
+from sklearn.pipeline import Pipeline
 
 
 class ModelAPI:
@@ -33,10 +36,33 @@ class ModelAPI:
         return ModelAPI._path_convert(s, path_type)
 
     @staticmethod
+    def _custom_router(path_type) -> str:
+        d = f"{ModelAPI.MODEL_DIR}/custom"
+        temp = list()
+        for n in os.listdir(d):
+            if n == 'demo.joblib':
+                continue
+            score = n.split('.')[0]
+            temp.append(score)
+
+        if len(temp):
+            pick = max(temp)
+            s = f"{d}/{pick}.joblib"
+            return ModelAPI._path_convert(s, path_type)
+
+    @staticmethod
+    def _demo_router(path_type)->str:
+        s = f"{ModelAPI.MODEL_DIR}/custom/demo.joblib"
+        return ModelAPI._path_convert(s, path_type)
+
+    @staticmethod
     def get_path(model_name: str, path_type=None) -> str:
         """
         1. dlib-lmk68
         2. openface_embed
+        3. custom
+        4. demo
+
         :param path_type: win, mac, unix, linux
         :param model_name:
         :return:
@@ -48,11 +74,20 @@ class ModelAPI:
         elif model_name == 'openface-embed':
             return ModelAPI._openface_embed_router(path_type)
 
+        elif model_name == 'custom':
+            return ModelAPI._custom_router(path_type)
+
+        elif model_name == 'demo':
+            return ModelAPI._demo_router(path_type)
+
     @staticmethod
     def get(model_name: str):
         """
         1. dlib-lmk68
         2. openface-embed
+        3. custom
+        4. demo
+
         :param model_name:
         :return:
         """
@@ -61,6 +96,12 @@ class ModelAPI:
 
         elif model_name == 'openface-embed':
             return ModelAPI._openface_embed_helper()
+
+        elif model_name == 'custom':
+            return ModelAPI._custom_helper()
+
+        elif model_name == 'demo':
+            return ModelAPI._demo_helper()
 
     @staticmethod
     def _dlib_lmk68_helper() -> dlib.shape_predictor:
@@ -71,3 +112,14 @@ class ModelAPI:
     def _openface_embed_helper() -> dlib.shape_predictor:
         p = ModelAPI._openface_embed_router('linux')
         return cv2.dnn.readNetFromTorch(p)
+
+    @staticmethod
+    def _custom_helper() -> Pipeline:
+        p = ModelAPI._custom_router('linux')
+        if p:
+            return load(p)
+
+    @staticmethod
+    def _demo_helper() -> Pipeline:
+        p = ModelAPI._demo_router('linux')
+        return load(p)

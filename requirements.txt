@@ -2,6 +2,11 @@ opencv-contrib-python
 imutils
 matplotlib
 dlib
+face_recognition
 secure-smtplib
 aiohttp
 gdown
+pandas
+scikit-learn
+easygui
+pyquery
