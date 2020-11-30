@@ -3,9 +3,30 @@ import numpy as np
 import os
 import imutils
 from urllib.request import urlopen
-
+from face_ult.captured_face import CapturedFace
+from imutils import face_utils
+import dlib
 
 class ImgTool:
+    BLOCK_THICK = 2
+    TEXT_SIZE = 0.75
+    color_map = {
+        'red': (0, 0, 255),
+        'green': (0, 255, 0),
+        'blue': (255, 0, 0),
+        'pink': (255, 223, 220),
+        'tiff_blue': (208, 216, 129)
+    }
+
+    @staticmethod
+    def get_color(x) -> tuple:
+        if isinstance(x, str):
+            return ImgTool.color_map[x]
+        elif isinstance(x, tuple):
+            return x
+        else:
+            return ImgTool.color_map['red']
+
     @staticmethod
     def get_rgb_img(img: np.ndarray) -> np.ndarray:
         try:
@@ -58,3 +79,15 @@ class ImgTool:
                                          (0, 0, 0), swapRB=swapRB, crop=crop)
         except Exception as e:
             print(f"[WARN] {__name__} ♦ failed to get image blob via cv2.dnn. Error: {e}")
+
+    @staticmethod
+    def add_face_block(img: np.ndarray, face_loc, color='green', thick=BLOCK_THICK) -> np.ndarray:
+        color = ImgTool.get_color(color)
+        if isinstance(face_loc, CapturedFace):
+            for face_block in face_loc:
+                x, y, w, h = face_utils.rect_to_bb(face_block)
+                cv2.rectangle(img, (x, y), (x + w, y + h), color, thick)
+        elif isinstance(face_loc, dlib.rectangle):
+            x, y, w, h = face_utils.rect_to_bb(face_loc)
+            cv2.rectangle(img, (x, y), (x + w, y + h), color, thick)
+        return img

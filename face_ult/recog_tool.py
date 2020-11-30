@@ -4,13 +4,13 @@ author: Jet Chien
 GitHub: https://github.com/jet-chien
 Create Date: 2020/11/15
 """
-import cv2
-import numpy as np
-import face_recognition
 import multiprocessing as mp
 from functools import partial
+from typing import Union
+
+import face_recognition
+import numpy as np
 from tqdm import tqdm
-import imutils
 
 from face_ult.cropper import Cropper
 from face_ult.face_capture import FaceCapture
@@ -20,7 +20,7 @@ from face_ult.model_api import ModelAPI
 
 class RecogTool:
     @staticmethod
-    def _get_face_embed(img: np.ndarray, proc_size: int, mode: str) -> np.ndarray:
+    def _get_face_embed(img: np.ndarray, proc_size: int, mode: str) -> Union[np.ndarray, None]:
         capt_faces = FaceCapture.cap(img)
         if not capt_faces.has_face:
             print(f"[WARN] {__name__} ♦ failed to get face-embed cuz FaceCapture can't capture any faces")
@@ -47,7 +47,7 @@ class RecogTool:
                 return face_recognition.face_encodings(face)[0]
 
     @staticmethod
-    def get_face_embed(img, proc_size=96, mode='cv2-dnn') -> np.ndarray:
+    def get_face_embed(img, proc_size=96, mode='cv2-dnn') -> Union[np.ndarray, None]:
         if isinstance(img, str):
             img = ImgTool.read_img(img)
             if img is not None:
