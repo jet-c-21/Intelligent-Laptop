@@ -27,7 +27,7 @@ class ProtectLaptopDlg:
             print(f'1 - face distance')
             print(f'2 - face model')
             print(f'3 - demo mode')
-            print(f'b - back')
+            print(f'b - back \n')
             cmd = input()
             if cmd == '1':
                 ProtectLaptopDlg.face_distance_handler()

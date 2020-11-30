@@ -43,9 +43,9 @@ class MailTool:
     def make_mail(self, receiver, attaches):
         subject = f"Hey, {self.master_name}. Here's a laptop security notification!"
         date = datetime.datetime.now()
-        content = f"At {date.year}-{date.month}-{date.day}, " \
+        content = f"At {date.year}-{date.month}-{date.day}  {date.hour}:{date.minute}:{date.second}, " \
                   f"your laptop might be used by some strangers\n" \
-                  f"Please check these faces!"
+                  f"\n Please check these faces!"
 
         msg = EmailMessage()
         msg['Subject'] = subject
