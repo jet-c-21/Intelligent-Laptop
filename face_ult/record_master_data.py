@@ -18,23 +18,23 @@ from ult.ui_tool import UITool
 
 
 class RecordMD:
-    img_dir = 'DeviceData/master/img'
-    meta_path = 'DeviceData/master/img_meta.csv'
-    meta_cols = ['id', 'ts', 'year', 'month', 'day', 'clarity', 'img_path']
+    IMG_DIR = 'DeviceData/master/img'
+    META_PATH = 'DeviceData/master/img_meta.csv'  # deprecate
+    META_COLS = ['id', 'ts', 'year', 'month', 'day', 'clarity', 'img_path']  # deprecate
 
     CLARITY_THRESH = 200
-    interval = 1
+    INTERVAL = 1
 
     def __init__(self, fetch_count=2):
         self.fetch_count = fetch_count
         self.__img_meta: pd.DataFrame
-        if not os.path.exists(RecordMD.img_dir):
-            os.mkdir(RecordMD.img_dir)
+        if not os.path.exists(RecordMD.IMG_DIR):
+            os.mkdir(RecordMD.IMG_DIR)
 
-        if os.path.exists(RecordMD.meta_path):
-            self.__img_meta = pd.read_csv(RecordMD.meta_path)
+        if os.path.exists(RecordMD.META_PATH):
+            self.__img_meta = pd.read_csv(RecordMD.META_PATH)
         else:
-            self.__img_meta = pd.DataFrame(columns=RecordMD.meta_cols)
+            self.__img_meta = pd.DataFrame(columns=RecordMD.META_COLS)
 
     def launch(self):
         flag = True
@@ -50,7 +50,7 @@ class RecordMD:
             capt_faces = FaceCapture.cap(frame)
             if capt_faces.face_count == 1:
                 ts = FileTool.get_curr_ts()
-                if ts - last_face_ts > RecordMD.interval:
+                if ts - last_face_ts > RecordMD.INTERVAL:
                     if self.__record_face(frame, capt_faces, ts):
                         fetch_face += 1
                         print(f'fetch face successfully. ({fetch_face}/{self.fetch_count})')
@@ -93,7 +93,7 @@ class RecordMD:
         if RecogTool.can_get_embed(rotated_face):
             # save the face image
             img_name = f'master_{ts}.jpg'
-            img_path = f'{RecordMD.img_dir}/{img_name}'
+            img_path = f'{RecordMD.IMG_DIR}/{img_name}'
             # date = FileTool.get_date(ts)
             cv2.imwrite(img_path, cropped_face)
             return True
@@ -101,5 +101,3 @@ class RecordMD:
             # save record in metadata
             # record = [img_name, ts, date.year, date.month, date.day, face_clarity, img_path]
             # self.__img_meta.loc[len(self.__img_meta)] = record
-
-
