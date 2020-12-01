@@ -2,7 +2,7 @@
 .DS_Store/
 .idea/*
 _pychache_/
-*/_pychache_/
+face_ult/_pychache_/
 data/
 data/*
 data.zip
