@@ -2,11 +2,8 @@
 .DS_Store/
 .idea/*
 _pychache_/
-_pychache_/*
-*/_pychache_
-*/_pychache_/*
+*/_pychache_/
 data/
 data/*
 data.zip
 DeviceData/
-DeviceData/*
