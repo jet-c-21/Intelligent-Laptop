@@ -80,6 +80,7 @@ class RecordMD:
 
         vs.stop()
         cv2.destroyAllWindows()
+
         # self.__img_meta.to_csv(RecordMD.meta_path, index=False, encoding='utf-8')
         msg = 'Finish recoding master data.'
         UITool.msg_window(msg=msg)
