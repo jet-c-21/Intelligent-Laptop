@@ -24,6 +24,7 @@ class RecordMD:
     META_COLS = ['id', 'ts', 'year', 'month', 'day', 'clarity', 'img_path']  # deprecate
 
     INTERVAL = 1
+    DISPLAY_SIZE = 500
 
     def __init__(self, fetch_count=2, display=True):
         self.fetch_count = fetch_count
@@ -47,6 +48,8 @@ class RecordMD:
         cv2.startWindowThread()
         while flag:
             frame = vs.read()
+            if frame is None:
+                continue
             frame = imutils.resize(frame, width=800)
             display_frame = frame.copy()
             capt_faces = FaceCapture.cap(frame)
