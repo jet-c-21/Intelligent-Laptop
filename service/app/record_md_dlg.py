@@ -3,12 +3,15 @@ import re
 
 from face_ult.record_master_data import RecordMD
 from ult.ui_tool import UITool
+from imutils.paths import list_images
 
 
 class RecordMasterDataDlg:
+    DEVICE_DIR = 'DeviceData'
+
     @staticmethod
-    def _check_master_data():
-        device_dir = 'DeviceData'
+    def _check_master_data() -> bool:
+        device_dir = RecordMasterDataDlg.DEVICE_DIR
         master_dir = f"{device_dir}/master"
         if not os.path.exists(device_dir) or not os.path.exists(master_dir):
             return False
@@ -18,6 +21,10 @@ class RecordMasterDataDlg:
             return False
 
         return True
+
+    @staticmethod
+    def _get_master_data_count() -> int:
+        return len(list(list_images(RecordMasterDataDlg.DEVICE_DIR)))
 
     @staticmethod
     def get_input_int():
@@ -31,7 +38,9 @@ class RecordMasterDataDlg:
     @staticmethod
     def launch():
         if RecordMasterDataDlg._check_master_data():
-            print('how many data do you want to record? plz type it!')
+            curr_count = RecordMasterDataDlg._get_master_data_count()
+            print(f"You have {curr_count} of master data now.")
+            print('How many data do you want to record this time? plz type it!')
             fetch_count = RecordMasterDataDlg.get_input_int()
             RecordMD(fetch_count).launch()
 
