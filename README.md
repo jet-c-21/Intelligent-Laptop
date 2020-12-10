@@ -135,12 +135,20 @@ b - back
 
 ### Master Data
 -  The face data of the laptop owner.
-- The demo data trained by the face data of [@jet-chien and](https://github.com/jet-chien) our billboard artist data
+- The demo model was trained by the face data of [@jet-chien](https://github.com/jet-chien) and our billboard artist data
 - This data is not uploaded because it is the personal data
 
 ## More Information
 
 ### File information
+> More detail are written in the ```README.md``` in each folder
+- ```face_ult``` : all of the main src code of image processing, face recoginize, data collection and model training are in this folder
+- ```service/app``` : the src code for the execution of the program
+- ```ult``` : some code of the utility function
+- ```test``` : some useful script for testing the user's device
+- ```gd_dataset.py``` : an api for downloading and unzip our billboard artist dataset
+- ```build_dataset.py``` : an executed script for downloading and unzip our billboard artist dataset
+- ```main.py``` : an executed script for running the whole program
 
 
 ### Laptop Protect Mode 1 - Face Distance
