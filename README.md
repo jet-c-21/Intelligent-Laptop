@@ -125,8 +125,13 @@ b - back
 
 >>> 2
 ```
+<br>
 
-# DATA
+## Model Selection
+> The result is in the jupyter notebook file - ```Model Selection.ipynb```
+<br>
+
+## DATA
 ### billboard Artist Data
 -  The size of our dataset is ```194 MB```, contains ```10422``` images of faces.
 -  The execute script is ```build_dataset.py```, it will call the crawler in ```data_updater.py``` to fetch the artist names on [Billboard Hot 100](https://www.billboard.com/charts/hot-100) and [Billborad Artist 100](https://www.billboard.com/charts/artist-100). And use the [Bings Search API](https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/) to search the images of the artists.
@@ -137,6 +142,11 @@ b - back
 -  The face data of the laptop owner.
 - The demo model was trained by the face data of [@jet-chien](https://github.com/jet-chien) and our billboard artist data
 - This data is not uploaded because it is the personal data
+<br>
+
+## Demo Video
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/eVziLxWSmTo/0.jpg)](http://www.youtube.com/watch?v=eVziLxWSmTo)
+<br>
 
 ## More Information
 
