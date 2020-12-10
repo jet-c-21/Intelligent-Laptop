@@ -1,7 +1,6 @@
 # Intelligent-Laptop
 ## A personal facial recognition model auto building program
 ### CS4200 - Project
-@jet-chien
 ---
 <br>
 
@@ -136,7 +135,7 @@ b - back
 
 ### Master Data
 -  The face data of the laptop owner.
-- The demo data trained by the face data of @jet-chien and our billboard artist data
+- The demo data trained by the face data of [@jet-chien and](https://github.com/jet-chien) our billboard artist data
 - This data is not uploaded because it is the personal data
 
 ## More Information
