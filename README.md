@@ -126,13 +126,22 @@ b - back
 >>> 2
 ```
 
+# DATA
+### billboard Artist Data
+-  The size of our dataset is ```194 MB```, contains ```10422``` images of faces.
+-  The execute script is ```build_dataset.py```, it will call the crawler in ```data_updater.py``` to fetch the artist names on [Billboard Hot 100](https://www.billboard.com/charts/hot-100) and [Billborad Artist 100](https://www.billboard.com/charts/artist-100). And use the [Bings Search API](https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/) to search the images of the artists.
+-  [Google Drive download link](https://drive.google.com/file/d/1TCha0-JlGMeuBoMgL0kehK_SsjQ1QKb7/view?usp=sharing)
 
+
+### Master Data
+-  The face data of the laptop owner.
+- The demo data trained by the face data of @jet-chien and our billboard artist data
+- This data is not uploaded because it is the personal data
 
 ## More Information
 
-### The dataset
-> The size of our dataset is ```194 MB```, contains ```10422``` images of faces.
-> The execute script is ```build_dataset.py```, it will call the crawler in ```data_updater.py``` to fetch the artist names on [Billboard Hot 100](https://www.billboard.com/charts/hot-100) and [Billborad Artist 100](https://www.billboard.com/charts/artist-100). And use the [Bings Search API](https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/) to search the images of the artists.
+### File information
+
 
 ### Laptop Protect Mode 1 - Face Distance
 > The method of face recognition in this mode is using the api ```face_encodings()``` and ```compare_faces()``` in [face_recognition](https://github.com/ageitgey/face_recognition) by computing the difference between the encodings of faces. But this method is very inefficient in extracting the encoding of face through the laptop camera. Therefore, this mode is not good to use.
