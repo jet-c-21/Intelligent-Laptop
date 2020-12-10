@@ -1,5 +1,5 @@
 # Intelligent-Laptop
-## A personal facial recognition model auto building program
+## A personal facial recognition model auto-building program
 ### CS4200 - Project
 ---
 <br>
