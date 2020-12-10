@@ -1,5 +1,6 @@
 import pathlib
 import random
+import datetime
 
 import numpy as np
 from imutils import paths
@@ -20,7 +21,9 @@ class ModelUpdater:
     DATASET_DIR = f"{pathlib.Path(__file__).parent.parent}/data"
     SAVE_DIR = f"{pathlib.Path(__file__).parent}/model/custom"
 
-    def __init__(self):
+    def __init__(self, count=3000, random_seed=777):
+        random.seed(random_seed)
+        self.master_pick_count = count
         self.X = list()
         self.y = list()
         self.test_size = 0.2
@@ -32,14 +35,22 @@ class ModelUpdater:
         self.model_name = None
         self.model_path = None
 
+        self.start_time = None
+        self.end_time = None
+        self.exe_time = None
+
     def load_master_data(self):
         img_paths = list(paths.list_images(ModelUpdater.DEVICE_DATA_DIR))
+        random.shuffle(img_paths)
         for p in tqdm(img_paths):
             embed = RecogTool.get_face_embed(p)
             if embed is not None:
                 self.X.append(embed)
                 self.y.append(1)
                 self.master_count += 1
+
+            if self.master_count >= self.master_pick_count:
+                break
 
     def load_stranger_data(self):
         img_paths = list(paths.list_images(ModelUpdater.DATASET_DIR))
@@ -55,7 +66,10 @@ class ModelUpdater:
                 break
 
     def train(self):
-        svc_clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+        svc_clf = make_pipeline(StandardScaler(), SVC(C=10,
+                                                      kernel='rbf',
+                                                      class_weight='balanced',
+                                                      gamma='scale'))
         self.score = np.mean(cross_val_score(svc_clf, self.X, self.y, cv=self.cv))
         X_sparse = coo_matrix(self.X)
         X, X_sparse, y = shuffle(self.X, X_sparse, self.y, random_state=777)
@@ -68,6 +82,7 @@ class ModelUpdater:
         dump(self.model, self.model_path)
 
     def launch(self):
+        self.start_time = datetime.datetime.now()
         self.load_master_data()
         print(f"[INFO] - finish loading master data and convert to training data, count: {self.master_count}")
 
@@ -79,3 +94,7 @@ class ModelUpdater:
 
         self.save_model()
         print(f"[INFO] - Model Saved - {self.model_path}")
+
+        self.end_time = datetime.datetime.now()
+        self.exe_time = self.end_time - self.start_time
+        print(f"[INFO] - Cost Time - {self.exe_time}")
