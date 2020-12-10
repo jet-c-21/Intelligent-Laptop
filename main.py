@@ -16,7 +16,7 @@ if not os.path.exists(DEVICE_DATA_PATH):
 def stage_b():
     flag = True
     while flag:
-        print('\n{}, what do you want do?'.format(op.master_data.get('name')))
+        print('\n{}, what do you want to do?'.format(op.master_data.get('name')))
         print('1 - record master data')
         print('2 - update model')
         print('3 - protect laptop')
