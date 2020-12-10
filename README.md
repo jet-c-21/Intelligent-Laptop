@@ -107,7 +107,7 @@ q - exit
 ```
 
 ### Try your model
-> The accuracy of your model is base on the amount of master data
+> The accuracy of your model is base on the variety of the master data
 ```
 Jet, what do you want do?
 1 - record master data
